@@ -15,19 +15,19 @@ router.post(
         let { CPF_cliente } = req.body;
         let { telefone_cliente } = req.body;
         let { email_cliente } = req.body;
-        // let { senha_cliente } = req.body;
+         let { senha_cliente } = req.body;
 
 
         cliente.create(
-            {nome_cliente},
-            {CPF_cliente},
-            {telefone_cliente},
-            {email_cliente},
-            {senha_cliente}
+            {nome_cliente,
+            CPF_cliente,
+            telefone_cliente,
+            email_cliente,
+            senha_cliente}
             
         ).then(
             ()=>{
-                res.send('TESTE');
+                res.send('Seu cadastro foi efetuado com sucesso!');
             }
         );
         
@@ -76,12 +76,12 @@ router.put(
         let{id,nome_cliente,CPF_cliente,telefone_cliente,email_cliente} = req.body;
 
         cliente.update( 
-            {nome_cliente},
-            {CPF_cliente},
-            {telefone_cliente},
-            {email_cliente},
-            {senha_cliente},
-            {where: {id}}
+            {nome_cliente,
+            CPF_cliente,
+            telefone_cliente,
+            email_cliente,
+            senha_cliente,
+            where: {id}}
 
         ).then( () => {
             res.send('TESTE')

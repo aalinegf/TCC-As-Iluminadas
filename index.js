@@ -23,7 +23,7 @@ const clienteController = require('./controller/ClienteController');
 app.use('/', clienteController);
 
 const produtoController = require('./controller/ProdutoController');
-// app.use('/', produtoController);
+ app.use('/', produtoController);
 
 
 
