@@ -36,6 +36,6 @@ CategoriaProduto.belongsTo(Categoria,
             foreignKey: 'fk_prod_cat'
         });
 
-        // CategoriaProduto.sync({force:true});
+        //  CategoriaProduto.sync({force:true});
 
 module.exports = CategoriaProduto;

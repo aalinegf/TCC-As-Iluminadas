@@ -13,11 +13,11 @@ const Endereco = connection.define(
             allowNull: false
         },
         cep:{
-            type: Sequelize.VARCHAR,
+            type: Sequelize.STRING,
             allowNull: false
         },
         complemento: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.STRING,
             allowNull: false 
         },
         numero: {
@@ -25,15 +25,15 @@ const Endereco = connection.define(
             allowNull: false
         },
         bairro: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.STRING,
             allowNull: false 
         },
         cidade: {
-            type: Sequelize.VARCHAR,
+            type: Sequelize.STRING,
             allowNull: false 
         },
         uf:{
-            type: Sequelize.VARCHAR,
+            type: Sequelize.STRING,
             allowNull: false
         }
        
@@ -46,5 +46,7 @@ Endereco.belongsTo(Cliente,
         foreignKey: 'fk_end_cli'
     })
 
+
+// Endereco.sync({force:true})
 
     module.exports = Endereco;

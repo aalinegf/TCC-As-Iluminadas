@@ -32,3 +32,7 @@ const Venda = connection.define(
             constraint: true,
             foreignKey: 'fk_ven_cli'
         });
+
+ 
+        //  Venda.sync({force: true})
+        module.exports = Venda;

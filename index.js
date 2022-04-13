@@ -17,7 +17,9 @@ const Cliente = require('./model/Cliente');
   const Categoria = require('./model/Categoria');
   const Produto = require('./model/Produto');
    const CategoriaProduto = require('./model/CategoriaProduto');
-  //  const Endereco = require('./model/Endereco');
+    const Endereco = require('./model/Endereco');
+    const Venda = require('./model/Venda');
+    const Itemvenda = require('./model/ItemVenda');
 
 
 const clienteController = require('./controller/ClienteController');

@@ -16,18 +16,20 @@ const connection = require('../database/database');
 const Cliente = connection.define(
     'tbl_cliente', {
         id_cliente: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true,
             primaryKey: true,
-            allowNull: false
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            autoIncrement: true,
+            unique: true
         },
         nome_cliente: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        cpf_cliente: {
+        CPF_cliente: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         telefone_cliente: {
             type: Sequelize.STRING,
@@ -45,7 +47,7 @@ const Cliente = connection.define(
     }
 )
 
-//   Cliente.sync({force: true})
+//    Cliente.sync({force: true})
 
 
 module.exports = Cliente;
