@@ -47,6 +47,6 @@ Endereco.belongsTo(Cliente,
     })
 
 
-// Endereco.sync({force:true})
+//  Endereco.sync({force:true})
 
     module.exports = Endereco;

@@ -35,6 +35,6 @@ Itemvenda.belongsTo(Produto,
     })
 
 
-    // Itemvenda.sync({force:true})
+    //  Itemvenda.sync({force:true})
 
     module.exports = Itemvenda;

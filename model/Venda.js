@@ -34,5 +34,5 @@ const Venda = connection.define(
         });
 
  
-        //  Venda.sync({force: true})
+        //   Venda.sync({force: true})
         module.exports = Venda;

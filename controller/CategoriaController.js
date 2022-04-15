@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/categoria/cadastrarCategoria', (req,res)=>{
 
 
-
+    
 
 
 });
