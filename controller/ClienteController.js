@@ -13,6 +13,12 @@
 
             try{
 
+                let { nome_cliente } = req.body;
+            let { CPF_cliente } = req.body;
+            let { telefone_cliente } = req.body;
+            const { email_cliente, senha_cliente } = req.body;
+
+            const hash =  bcrypt.hash(senha_cliente,10);
                 
 
                 }catch{
@@ -21,10 +27,7 @@
 
         
             
-            let { nome_cliente } = req.body;
-            let { CPF_cliente } = req.body;
-            let { telefone_cliente } = req.body;
-            const { email_cliente, senha_cliente } = req.body;
+            
             
         
 
@@ -52,13 +55,18 @@
              return res.status(401).send('Não foi posssível prosseguir com o login!')
          } 
          
-         try{
+        //  try{
 
+        //     if(await bcrypt.compare(req.body.senha_cliente, cliente.senha_cliente) ){
+        //         res.send('Você logou com sucesso!')
+        //     } else{
+        //         res.send('Não foi dessa vez, tente novamente!')
+        //     }
            
 
-         }catch{
-
-         }
+        //  }catch{
+        //     res.status(500).send();
+        //  }
 
         }
     )
