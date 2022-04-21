@@ -20,7 +20,7 @@ const { body, validationResult } = require('express-validator');
                 }
                 return true
             }),
-            body('senha_cliente').isLength({min: 8}).withMessage('este campo precisa preenchido com pelo menos 8 caracteres'),
+            body('senha_cliente').isLength({min: 8}).withMessage('Este campo precisa preenchido com pelo menos 8 caracteres'),
            body('nome_cliente').isLength({min: 3}).withMessage('Este campo precisa ser preenchido com pelo menos 3 caracteres'),
            body('CPF_cliente').isNumeric().withMessage('CPF precisa ser numerico')
            
@@ -28,18 +28,40 @@ const { body, validationResult } = require('express-validator');
 
             const err = validationResult(req);
             if(!err.isEmpty()){
-                return res.status(401).json({err: err.array()});
+                return res.status(401).json({err: err.array()})
             }
 
+            const{nome_cliente, CPF_cliente,telefone_cliente, email_cliente, senha_cliente} = req.body;
+
+           cliente.create(
+               {
+                   nome_cliente,
+                   CPF_cliente,
+                   telefone_cliente,
+                   email_cliente,
+                   senha_cliente
+               }
+           ).then(()=>{
+               res.send('Seu cadastro foi efetuado com sucesso!!')
+           })
+            
 
 
         })
 
         router.post(
             '/cliente/login', [
-            body('email_cliente').isEmail(),
-            body('senha_cliente').isLength({min: 8})
-        ], (req,res) =>{
+                body('email_cliente').isEmail().withMessage('O e-mail precisa ver válido'),
+                body('email_cliente').custom(value =>{
+                    if(!value){
+                        return Promise.reject('E-mail é obrigatório');
+                    }
+                    if(value == 'teste@teste.com'){
+                        return Promise.reject('E-mail já cadastrado');
+                    }
+                    return true
+                }),
+                body('senha_cliente').isLength({min: 8}).withMessage('Este campo precisa preenchido com pelo menos 8 caracteres')], (req,res) =>{
 
             const cliente = cliente.find(cliente => cliente.email_cliente === req.body.email_cliente);
             if(cliente == null){
