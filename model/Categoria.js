@@ -1,31 +1,24 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
-const connection = require('../database/database');
+const connection = require('../database/database')
 
-const Categoria = connection.define(
-    'tbl_categoria', {
+const Categoria = connection.define('tbl_categoria', {
+  id_categoria: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  nome_categoria: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  descricao_categoria: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+})
 
-        id_categoria: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-            allowNull: false
-        },
-        nome_categoria: {
-            type: Sequelize.STRING,
-            allowNull: false
+  // Categoria.sync({force:true});
 
-        },
-        descricao_categoria: {
-            type: Sequelize.STRING,
-            allowNull: false 
-
-        }
-    }
-)
-
-
-//   Categoria.sync({force:true});
-
-module.exports = Categoria;
-
+module.exports = Categoria

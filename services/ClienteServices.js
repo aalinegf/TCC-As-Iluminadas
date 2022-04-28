@@ -1,4 +1,3 @@
-import model from './model';
+import model from './model'
 
-const Cliente = model.Cliente;
-
+const Cliente = model.Cliente

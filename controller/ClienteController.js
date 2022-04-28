@@ -1,168 +1,142 @@
-  const express = require('express');
-  const bcrypt = require('bcrypt');
-
- const cliente = require('../model/Cliente');
- const  hash  = require('bcrypt');
-const { body, validationResult } = require('express-validator');
-
-            const router = express.Router();
+const express = require('express')
+const bcryptjs = require('bcryptjs')
+const hash = require('bcryptjs')
+const { body, validationResult } = require('express-validator')
+const request = require('request');          
 
 
 
-        router.post ('/cadastrarCliente', [
-            body('email_cliente').isEmail().withMessage('O e-mail precisa ver válido'),
-            body('email_cliente').custom(value =>{
-                if(!value){
-                    return Promise.reject('E-mail é obrigatório');
-                }
-                if(value == 'teste@teste.com'){
-                    return Promise.reject('E-mail já cadastrado');
-                }
-                return true
-            }),
-            body('senha_cliente').isLength({min: 8}).withMessage('Este campo precisa preenchido com pelo menos 8 caracteres'),
-           body('nome_cliente').isLength({min: 3}).withMessage('Este campo precisa ser preenchido com pelo menos 3 caracteres'),
-           body('CPF_cliente').isNumeric().withMessage('CPF precisa ser numerico')
-           
-        ], (req,res)=>{
-
-            const err = validationResult(req);
-            if(!err.isEmpty()){
-                return res.status(401).json({err: err.array()})
-            }
-
-            const{nome_cliente, CPF_cliente,telefone_cliente, email_cliente, senha_cliente} = req.body;
-
-           cliente.create(
-               {
-                   nome_cliente,
-                   CPF_cliente,
-                   telefone_cliente,
-                   email_cliente,
-                   senha_cliente
-               }
-           ).then(()=>{
-               res.send('Seu cadastro foi efetuado com sucesso!!')
-           })
-            
+const cliente = require('../model/Cliente')
+// const { async } = require('@firebase/util')
+const router = express.Router()
 
 
-        })
 
-        router.post(
-            '/cliente/login', [
-                body('email_cliente').isEmail().withMessage('O e-mail precisa ver válido'),
-                body('email_cliente').custom(value =>{
-                    if(!value){
-                        return Promise.reject('E-mail é obrigatório');
-                    }
-                    if(value == 'teste@teste.com'){
-                        return Promise.reject('E-mail já cadastrado');
-                    }
-                    return true
-                }),
-                body('senha_cliente').isLength({min: 8}).withMessage('Este campo precisa preenchido com pelo menos 8 caracteres')], (req,res) =>{
+router.post(
+  '/cadastrarCliente', 
 
-            const cliente = cliente.find(cliente => cliente.email_cliente === req.body.email_cliente);
-            if(cliente == null){
-                return res.status(401).send('Não foi posssível prosseguir com o login!')
-            } 
-            
-            //  try{
+  [
+    body('email').isEmail().withMessage('O e-mail precisa ser válido'),
+    body('email').custom((value) => {
+      if (!value) {
+        return Promise.reject('E-mail é obrigatório')
+      }
+      if (value == 'teste@teste.com') {
+        return Promise.reject('E-mail já cadastrado')
+      }
+      return true
+    }),
+    body('password')
+      .isLength({ min: 6 })
+      .withMessage('Este campo precisa preenchido com pelo menos 6 caracteres'),
+    body('name')
+      .isLength({ min: 3 })
+      .withMessage(
+        'Este campo precisa ser preenchido com pelo menos 3 caracteres'
+      ),
+    body('cpf').isNumeric().withMessage('cpf precisa ser numerico'),
+  ],
 
-            //     if(await bcrypt.compare(req.body.senha_cliente, cliente.senha_cliente) ){
-            //         res.send('Você logou com sucesso!')
-            //     } else{
-            //         res.send('Não foi dessa vez, tente novamente!')
-            //     }
-            
+  (req, res) => {
 
-            //  }catch{
-            //     res.status(500).send();
-            //  }
+    const err = validationResult(req)
 
-            }
-        )
+    if (!err.isEmpty()) {
+      return res.status(401).json({ err: err.array() })
+    }
 
-        router.get(
-            '/cliente/listarCliente',
-            (req, res)=>{
-            
-                cliente.findAll()
-                        .then(
-                            (clientes)=>{
-                                res.send(clientes);
-                            }
-                        );
+    let { name, cpf, phone, email, password} = req.body
 
-                
-            }
-        );
+    console.log(req.body);
+    let senha;
 
-        router.get( '/cliente/listarCliente/:id', (req, res)=>{
+    bcryptjs.genSalt(10, function(err, salt) {
+      bcryptjs.hash(password, salt, function(err, hash) {
+          
+          password = hash
+
+          cliente
+          .create({
+            name,
+            cpf,
+            phone,
+            email,
+            password,
+          })
+          .then(() => {
+            res.send('Seu cadastro foi efetuado com sucesso!!')
+          })
+
+      });
+    });
+
+  }
+
+)
+
+router.post(
+'/cliente/login',  
+[
+body('email').isEmail().withMessage('O e-mail precisa ver válido'),
+body('email').custom((value) => {
+  if (!value) {
+    return Promise.reject('E-mail é obrigatório')
+  }
+  if (value == 'teste@teste.com') {
+    return Promise.reject('E-mail já cadastrado')
+  }
+  return true
+}),
+body('password')
+  .isLength({ min: 8 })
+  .withMessage('Este campo precisa preenchido com pelo menos 8 caracteres')
 
 
-            let {id} = req.params;
-            
+
+],
+(req, res) => {
+const cliente = cliente.find((cliente) => cliente.email === req.body.email)
+if (cliente == null) {
+  return res.status(401).send('Não foi posssível prosseguir com o login!')
+}
 
 
-            cliente.findByPk(id).then(
-                (clienteID) => {
-                    res.send(clienteID);
+}
+)
 
-                }
-            )         
-            
-            
-        });
+router.get('/cliente/listarCliente', (req, res) => {
+cliente.findAll().then((clientes) => {
+res.send(clientes)
+})
+})
 
+router.get('/cliente/listarCliente/:id', (req, res) => {
+let { id } = req.params
 
-        router.put(
-            '/cliente/alterarCliente',
-            (req, res)=>{
-                
-                
+cliente.findByPk(id).then((clienteID) => {
+res.send(clienteID)
+})
+})
 
-                let{id,nome_cliente,CPF_cliente,telefone_cliente,email_cliente} = req.body;
+router.put('/cliente/alterarCliente', (req, res) => {
+let { id, name, cpf, phone, email, password } = req.body
 
-                cliente.update( 
-                    {nome_cliente,
-                    CPF_cliente,
-                    telefone_cliente,
-                    email_cliente,
-                    senha_cliente,
-                    where: {id}}
+cliente
+.update({ name, cpf, phone, email, password, where: { id } })
+.then(() => {
+  res.send('TESTE')
+})
+})
 
-                ).then( () => {
-                    res.send('TESTE')
-                } );
+router.delete('/cliente/excluirCliente', (req, res) => {
+let { id } = req.body
 
-                
-            }
-        );
+cliente.destroy({ where: { id } }).then(() => {
+res.send('TESTE')
+})
+})
 
-        router.delete(
-            '/cliente/excluirCliente',
-            (req, res)=>{
+// router.post('/cliente/login', resolver(middleware.autenticacao), resolver(clienteController.login))	// autenticação e login (gera token JWT) do Cliente
+// 	router.delete('/cliente/logout', middleware.autorizacao, resolver(clienteController.logout))
 
-            let{id} = req.body;
-
-            cliente.destroy(
-                {where: {id}}
-            ).then(
-                () => {
-                    res.send('TESTE')
-                }
-
-            );
-
-            
-
-                
-            }
-        );
-
-        // router.post('/cliente/login', resolver(middleware.autenticacao), resolver(clienteController.login))	// autenticação e login (gera token JWT) do Cliente
-        // 	router.delete('/cliente/logout', middleware.autorizacao, resolver(clienteController.logout))	
-
-        module.exports = router;
+module.exports = router

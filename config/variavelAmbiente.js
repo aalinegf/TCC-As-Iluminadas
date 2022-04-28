@@ -6,7 +6,7 @@
 // const __dirname = dirname(__fileurl)
 
 // config({
-//     path: process.env.NODE_ENV === 'dev' 
+//     path: process.env.NODE_ENV === 'dev'
 //         ? resolve(__dirname, '.env.dev')
 //         : resolve(__dirname, '.env.pro')
 // })
