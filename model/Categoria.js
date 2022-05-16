@@ -21,4 +21,6 @@ const Categoria = connection.define('tbl_categoria', {
 
   // Categoria.sync({force:true});
 
+
+
 module.exports = Categoria

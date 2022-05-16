@@ -104,7 +104,7 @@ if (cliente == null) {
 }
 )
 
-router.get('/cliente/listarCliente', (req, res) => {
+router.get('/listarCliente', (req, res) => {
 cliente.findAll().then((clientes) => {
 res.send(clientes)
 })
@@ -128,7 +128,7 @@ cliente
 })
 })
 
-router.delete('/cliente/excluirCliente', (req, res) => {
+router.delete('/excluirCliente', (req, res) => {
 let { id } = req.body
 
 cliente.destroy({ where: { id } }).then(() => {

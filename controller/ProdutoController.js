@@ -1,67 +1,72 @@
-const express = require('express')
+const express = require('express');
 
-const multer = require('multer')  //para as fotos dos produtos 
+const multer = require('multer')  //para as fotos dos produtos
 
-const fs = require('fs'); 
+const fs = require('fs'); //manipulação dos arquivos, no caso as imagens 
 
-const produto = require('../model/Produto')
+const app = express();
+
+const produto = require('../model/Produto'); //importação do model 
 
 
-const router = express.Router()
+const router = express.Router();
 
 
-// gerenciar o multer para o recebimento das fotos 
 
+// vai gerenciar o armazenamento dos arquivos (imagens do produto)
 const storage = multer.diskStorage({
-  destination: (req, file, cb)=>{
-    cb(null, './images/')
+  destination: (req, file, cb) =>{
+      cb(null, './uploads/');
   },
-  filename: (req,file,cb)=>{
-    cb(null, Date.now().toString() + '_' + file.originalname)
+  filename: (req, file, cb)=>{
+      cb(null, Date.now().toString() + '_' + file.originalname);
   }
-})
+});
 
-// definição do tipo de arquivo que vai poder subir
+// vai configurar o tipo de imagem que pode subir 
+const fileFilter = (req, file, cb)=>{
 
-const fileFilter = (req, file, cb) =>{
-  
-  if(file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
-    cb(null, true);
+  if( file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' ||  file.mimetype === 'image/png'){
+
+      cb(null, true);
+
   }else{
+
       cb(null, false);
+
   }
 
 }
 
-// realização do processo para subir as fotos
-
-const images = multer({
+// vai subir as imagens no banco 
+const upload = multer({
   storage: storage,
-  limits: {
-    fieldSize: 1024 * 1024 * 5 
+  limits:{ 
+      fieldSize: 1024 * 1024 * 5
   },
   fileFilter: fileFilter
 });
 
 /////////////////////////////////////////////////////////////////////////////////
 
-router.post('/cadastrarProduto', images.single('image'), (req, res) => {
+router.post('/cadastrarProduto', upload.single('file'), (req, res) => {
 
- console.log(req.file[0]);
+console.log(req.file);
+console.log(req.body);
 
-const { name_product, description, stock } = req.body
-const image = req.file[0].path; 
+let { name_product, description, stock } = req.body;
+let image = req.file.path; 
 
 produto.create({
-name_product,
-description,
-stock,
-image,
+  name_product,
+  description,
+  stock,
+  image,
 })
 .then(() => {
-res.send('PRODUTO CADASTRADO')
+  res.send('PRODUTO CADASTRADO')
 })
-})
+});
 
 
 
@@ -72,17 +77,59 @@ res.send(produtos)
 })
 })
 
-router.put('/alterarProduto', (req, res) => {
+// rota de listar o produto por id 
+
+router.get('/listarProduto/:id ', (req, res) =>{
+
+    let {id} = req.params;
+      produto.findByPk(id).then((produto)=>{
+        res.send(produto)
+      })
+})
+
+router.put('/alterarProduto',upload.single('file'), (req, res) => {
+
+const {name_product, description, stock, image} = req.body; 
+
+// alteração do produto com a imagem sendo excluida 
+
+if(req.files != ''){
+
+  produto.findByPk(id).then((produto)=>{
+    let image = produto.image; 
+
+    // excluindo a imagem 
+
+    fs.unlink(image, (error)=>{
+      if(error){
+        console.log('Imagem não excluiu, tenta ai dnv' + error)
+      }else{
+        console.log('Deuu certooooo!')
+      }
+    });
+
+      image = req.files.path
+
+  })
+}
+
+// aqui é a atualização dos dados do produto 
+
 produto.update(
-  {
-    name_product,
-    description,
-    stock,
-    image,
-    }
+{
+  name_product,
+  description,
+  stock,
+  image,
+  }
 )
 })
 
-router.delete('/apagarProduto', (req, res) => {})
+router.delete('/apagarProduto', (req, res) => {
+
+    
+    
+
+})
 
 module.exports = router

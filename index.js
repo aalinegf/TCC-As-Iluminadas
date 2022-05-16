@@ -13,8 +13,12 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-const connection = require('./database/database')
+// IMPORTAÇÃO DO BANCO DE DADOS 
 
+const connection = require('./database/database')
+/**
+ * IMPORTAÇÃO DO MODEL 
+ */
 const Cliente = require('./model/Cliente')
 const Categoria = require('./model/Categoria')
 const Produto = require('./model/Produto')
@@ -23,11 +27,16 @@ const Endereco = require('./model/Endereco')
 const Venda = require('./model/Venda')
 const Itemvenda = require('./model/ItemVenda')
 
+/**  IMPORTAÇÃO DO CONTROLLER  */
+
 const clienteController = require('./controller/ClienteController')
 app.use('/', clienteController)
 
 const produtoController = require('./controller/ProdutoController')
 app.use('/', produtoController)
+
+const categoriaController = require('./controller/CategoriaController');
+app.use('/', categoriaController)
 
 // const enderecoController = require('./controller/EnderecoController')
 // app.use('/', enderecoController)
