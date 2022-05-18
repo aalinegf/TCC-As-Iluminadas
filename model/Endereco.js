@@ -5,7 +5,7 @@ const connection = require('../database/database')
 const Cliente = require('./Cliente')
 
 const Endereco = connection.define('tbl_enderecos', {
-  id_enderecos: {
+  id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
@@ -15,19 +15,19 @@ const Endereco = connection.define('tbl_enderecos', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  complemento: {
+  complement: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  numero: {
+  number: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  bairro: {
+  district: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  cidade: {
+  city: {
     type: Sequelize.STRING,
     allowNull: false,
   },

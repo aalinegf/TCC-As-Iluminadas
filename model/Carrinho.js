@@ -21,4 +21,6 @@ const Carrinho = connection.define('tbl_carrinho', {
 })
 
 
+        
+
 module.exports = Carrinho

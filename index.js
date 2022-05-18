@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 // IMPORTAÇÃO DO BANCO DE DADOS 
 
 const connection = require('./database/database')
+
 /**
  * IMPORTAÇÃO DO MODEL 
  */
@@ -30,17 +31,28 @@ const Itemvenda = require('./model/ItemVenda')
 /**  IMPORTAÇÃO DO CONTROLLER  */
 
 const clienteController = require('./controller/ClienteController')
-app.use('/', clienteController)
+app.use('/', clienteController);
 
 const produtoController = require('./controller/ProdutoController')
-app.use('/', produtoController)
+app.use('/', produtoController);
 
 const categoriaController = require('./controller/CategoriaController');
-app.use('/', categoriaController)
+app.use('/', categoriaController);
 
-// const enderecoController = require('./controller/EnderecoController')
-// app.use('/', enderecoController)
+const enderecoController = require('./controller/EnderecoController')
+app.use('/', enderecoController);
 
+const vendaController = require('./controller/VendaController');
+app.use('/', vendaController)
+
+
+
+
+
+
+
+
+// PORTA QUE ESTA SENDO UTILIZADA 
 app.listen(8000, () => {
   console.log('Servidor Iniciado')
 })
