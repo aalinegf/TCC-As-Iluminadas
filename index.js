@@ -23,10 +23,10 @@ const connection = require('./database/database')
 const Cliente = require('./model/Cliente')
 const Categoria = require('./model/Categoria')
 const Produto = require('./model/Produto')
-const CategoriaProduto = require('./model/CategoriaProduto')
 const Endereco = require('./model/Endereco')
 const Venda = require('./model/Venda')
-const Itemvenda = require('./model/ItemVenda')
+const Carrinho = require('./model/Carrinho')
+
 
 /**  IMPORTAÇÃO DO CONTROLLER  */
 

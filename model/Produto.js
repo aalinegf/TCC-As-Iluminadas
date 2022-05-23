@@ -2,6 +2,8 @@ const Sequelize = require('sequelize')
 
 const connection = require('../database/database')
 
+const Categoria = require('./Categoria');
+
 const Produto = connection.define('tbl_produto', {
   id: {
     type: Sequelize.INTEGER,
@@ -27,11 +29,15 @@ const Produto = connection.define('tbl_produto', {
   },
 
   price_product: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL,
     allowNull: false
   }
 
 })
+
+// implementação da chave estrangeira 
+
+Categoria.hasMany(Produto); 
 
   // Produto.sync({force: true});
 

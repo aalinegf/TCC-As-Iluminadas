@@ -3,21 +3,21 @@ const Sequelize = require('sequelize')
 const connection = require('../database/database')
 
 const Categoria = connection.define('tbl_categoria', {
-  id_categoria: {
+  id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false,
   },
-  nome_categoria: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  descricao_categoria: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
   },
 })
+
+
+  
+
 
   //  Categoria.sync({force:true});
 

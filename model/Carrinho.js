@@ -16,11 +16,13 @@ const Carrinho = connection.define('tbl_carrinho', {
     },
 
 
-
-
 })
 
 
-        
+  Produto.hasMany(Carrinho);
+  Cliente.hasMany(Carrinho);
+
+// Carrinho.sync({force: true});
+
 
 module.exports = Carrinho

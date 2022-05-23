@@ -37,10 +37,10 @@ const Endereco = connection.define('tbl_enderecos', {
   },
 })
 
-Endereco.belongsTo(Cliente, {
-  constraint: true,
-  foreignKey: 'fk_end_cli',
-})
+
+// CHAVE ESTRANGEIRA 
+
+Cliente.hasMany(Endereco)
 
 //  Endereco.sync({force:true})
 

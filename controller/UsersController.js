@@ -5,6 +5,22 @@ const { body, validationResult } = require('express-validator')
 const request = require('request');   
 
 
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // router.post(
 //     '/cliente/login',  
 //     [

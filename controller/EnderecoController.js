@@ -11,7 +11,7 @@ router.get('/listarEndereco', (req,res)=>{
 
 router.post('/cadastrarEndereco', (req,res)=>{
 
-    let {cep, complement, number, district, city, uf } = req.body; 
+    let {cep, complement, number, district, city, uf, tblClienteId } = req.body; 
 
     endereco.create({
         cep,
@@ -19,15 +19,28 @@ router.post('/cadastrarEndereco', (req,res)=>{
         number,
         district,
         city,
-        uf}).then(()=>{
+        uf,
+        tblClienteId
+    }).then(()=>{
             res.send('ENDEREÇO CADASTRADO COM SUCESSO! ')
         });
 
 })
 
 router.put('/alterarEndereco', (req,res)=>{
+        
+    let {cep, complement, number, district, city, uf, tblClienteId} = req.body; 
 
-})
+    endereco.update({
+        cep,
+        complement,
+        number,
+        district,
+        city,
+        uf,
+        tblClienteId
+    }).then(()=>{res.send('ENDEREÇO ALTERADO!')})
+});
 
 
 router.delete('/deletarEndereco', (req,res) =>{
