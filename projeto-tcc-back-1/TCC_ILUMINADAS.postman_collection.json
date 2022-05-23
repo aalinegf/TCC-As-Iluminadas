@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "f33ac2fd-8b43-44e3-ae58-2b03474115ec",
+		"name": "TCC_ILUMINADAS",
+		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests a user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CLIENTE",
+			"item": [
+				{
+					"name": "mostrarCliente",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/listarCliente",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"listarCliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mostrarClienteID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "cadastrarCliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Joao\",\r\n    \"cpf\" : \"78347969016\",\r\n    \"phone\": \"41818255\",\r\n    \"email\": \"gatinha@hotmail.com\",\r\n    \"password\": \"12362456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/cadastrarCliente",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"cadastrarCliente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "CadastrarProduto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_product",
+									"value": "Vela vermelha",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "vela de coração",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Aluno/Downloads/vela2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/cadastrarProduto",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"cadastrarProduto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarProduto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/listarProduto",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"listarProduto"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "localhost:3000",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		}
+	]
+}
