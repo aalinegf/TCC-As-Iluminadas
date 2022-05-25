@@ -45,7 +45,10 @@ router.put('/alterarEndereco', (req,res)=>{
 
 router.delete('/deletarEndereco', (req,res) =>{
     
-})
+    let {id} = req.body;
+
+    endereco.destroy({where: {id}}).then(()=>{res.send('ENDEREÇO EXCLUÍDO COM SUCESSO!')});
+});
 
 
 

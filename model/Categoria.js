@@ -23,4 +23,5 @@ const Categoria = connection.define('tbl_categoria', {
 
 
 
+
 module.exports = Categoria

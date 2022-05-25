@@ -14,6 +14,10 @@ const Carrinho = connection.define('tbl_carrinho', {
     primaryKey: true,
     allowNull: false,
     },
+  payment_method: {
+    type: Sequelize.DECIMAL,
+    allowNull: false
+  }
 
 
 })

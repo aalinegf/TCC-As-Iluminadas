@@ -45,6 +45,9 @@ app.use('/', enderecoController);
 const vendaController = require('./controller/VendaController');
 app.use('/', vendaController)
 
+const usersController = require('./controller/UsersController');
+app.use('/', usersController)
+
 
 
 

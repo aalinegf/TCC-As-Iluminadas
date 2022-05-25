@@ -47,7 +47,6 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-/////////////////////////////////////////////////////////////////////////////////
 
 router.post('/cadastrarProduto', upload.single('file'), (req, res) => {
 
@@ -75,8 +74,7 @@ produto.create({
 router.get('/listarProduto', (req, res) => {
 produto.findAll().then((produtos) => {
 res.send(produtos)
-})
-})
+})});
 
 // rota de listar o produto por id 
 
@@ -127,11 +125,13 @@ produto.update(
 )
 })
 
-router.delete('/apagarProduto', (req, res) => {
+router.delete('/apagarProduto/:id', (req, res) => {
 
-    
-    
-
-})
+   let {id} = req.params;
+      produto.findByPk(id).then((produto)=>{
+        let image = produto.image;
+        
+      })
+});
 
 module.exports = router
