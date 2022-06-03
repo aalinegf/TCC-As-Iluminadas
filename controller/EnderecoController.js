@@ -29,7 +29,7 @@ router.post('/cadastrarEndereco', (req,res)=>{
 
 router.put('/alterarEndereco', (req,res)=>{
         
-    let {cep, complement, number, district, city, uf, tblClienteId} = req.body; 
+    let {cep, complement, number, district, city, uf, tblClienteId, id} = req.body; 
 
     endereco.update({
         cep,
@@ -39,7 +39,7 @@ router.put('/alterarEndereco', (req,res)=>{
         city,
         uf,
         tblClienteId
-    }).then(()=>{res.send('ENDEREÇO ALTERADO!')})
+    },  {where: {id}}).then(()=>{res.send('ENDEREÇO ALTERADO!')})
 });
 
 

@@ -17,6 +17,10 @@ const Venda = connection.define('tbl_venda', {
     type: Sequelize.DECIMAL,
     allowNull: false 
   },
+  payment_method: {
+    type: Sequelize.DECIMAL,
+    allowNull: false
+  }
 })
 
 
